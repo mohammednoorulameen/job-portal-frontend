@@ -10,33 +10,16 @@ const JobListing: React.FC<JobListingProps> = ({ jobs }) => {
   return (
     <div className="max-w-[1400px] mx-auto p-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      
         {jobs.map((job) => (
-          // <JobCard
-          //   key={job.id}
-          //   image={
-          //     typeof job.companyLogo === "string"
-          //       ? job.companyLogo || "/default-logo.png"
-          //       : job.companyLogo instanceof File
-          //       ? URL.createObjectURL(job.companyLogo)
-          //       : "/default-logo.png"
-          //   }
-          //   time={new Date(job.createdAt).toLocaleDateString()}
-          //   title={job.jobTitle}
-          //   company={job.companyName}
-          //   location={job.location}
-          //   type={job.jobType}
-          //   requirements = {job.requirements}
-          //   salary={`$${job.minSalary} - $${job.maxSalary}`}
-          // />
-
           <JobCard
   key={job.id}
   image={
     typeof job.companyLogo === "string"
-      ? job.companyLogo || "/default-logo.png"
+      ? job.companyLogo || "/logo-2.png"
       : job.companyLogo instanceof File
       ? URL.createObjectURL(job.companyLogo)
-      : "/default-logo.png"
+      : "/logo-2.png"
   }
   time={new Date(job.createdAt).toLocaleDateString()}
   title={job.jobTitle}

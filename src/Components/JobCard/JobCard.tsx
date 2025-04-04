@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 interface JobProps {
-  image: string;
+  image: string | File;
   time: string;
   title: string;
   company: string;
@@ -39,11 +39,25 @@ const JobCard: React.FC<JobProps> = ({
     <div className="bg-white shadow-lg rounded-lg p-4 border border-gray-200">
       {/* Top Section: User Image + Time */}
       <div className="flex justify-between items-center">
-        <img
+        {/* <img
           src={image}
           alt="Company Logo"
           className="w-12 h-12 rounded-full object-cover"
-        />
+        /> */}
+        <img
+  src={
+    typeof image === "string"
+      ? image || "/logo-2.png"
+      : image instanceof File
+      ? URL.createObjectURL(image)
+      : "/logo-2.png"
+  }
+  onError={(e) => {
+    (e.target as HTMLImageElement).src = "/logo-2.png";
+  }}
+  alt="Company Logo"
+  className="w-12 h-12 rounded-full object-cover"
+/>
         <span className="text-gray-500 text-sm">{time}</span>
       </div>
 
@@ -83,84 +97,4 @@ const JobCard: React.FC<JobProps> = ({
 };
 
 export default JobCard;
-
-
-
-// "use client";
-
-// import React, { useState } from 'react';
-
-// interface JobCard {
-//   image: string;
-//   time: string;
-//   title: string;
-//   company: string;
-//   location: string;
-//   type: string;
-//   salary: string;
-//   requirements: string;
-//   responsibilities: string;
-//   experience: string;
-//   applicationDeadline: string;
-//   workLocation: string;
-//   jobDescription: string;
-// }
-
-// // interface JobProps {
-// //     image: string;
-// //     time: string;
-// //     title: string;
-// //     company: string;
-// //     location: string;
-// //     type: string;
-// //     salary: string;
-// //   }
-  
-
-// const JobCard: React.FC <JobProps> = ({ image, time, title, company, location, type, salary }) => {
-//     const [isOpen, setIsOpen] = useState(false);
-
-  // return (
-  //   <div className="bg-white shadow-lg rounded-lg p-4 border border-gray-200">
-  //     {/* Top Section: User Image + Time */}
-  //     <div className="flex justify-between items-center">
-  //       {/* User Image (Rounded) */}
-  //       <img
-  //         src={image} // Use dynamic image from props
-  //         alt="User"
-  //         className="w-12 h-12 rounded-full object-cover"
-  //       />
-
-  //       {/* Posted Time */}
-  //       <span className="text-gray-500 text-sm">{time}</span>
-  //     </div>
-
-  //     {/* Job Details */}
-  //     <div className="mt-4">
-  //       {/* Job Title */}
-  //       <h2 className="text-lg font-semibold">{title}</h2>
-
-  //       {/* Company & Location */}
-  //       <p className="text-gray-600">{company} • {location}</p>
-
-  //       {/* Job Type & Salary */}
-  //       <div className="mt-2 flex items-center space-x-4">
-  //         <span className="text-blue-600 font-medium">{type}</span>
-  //         <span className="text-green-600 font-medium">{salary}</span>
-  //       </div>
-
-  //       {/* Apply Button */}
-  //       <button onClick={() => setIsOpen(true)}
-  //        className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-  //         Apply Now
-  //       </button>
-  //     </div>
-
-
-  //   </div>
-  // );
-// };
-
-// export default JobCard;
-
 
