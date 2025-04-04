@@ -62,7 +62,7 @@ export default function FilterSection({ onFilter }: FilterSectionProps) {
                       handleSubmit(onSubmit)()
                     }}
                   >
-                    <option value="any">Any Location</option>
+                    <option value="">Any Location</option>
                     <option value="Bangalore">Bangalore</option>
                     <option value="Mumbai">Mumbai</option>
                     <option value="Delhi">Delhi</option>
@@ -89,7 +89,7 @@ export default function FilterSection({ onFilter }: FilterSectionProps) {
                       handleSubmit(onSubmit)()
                     }}
                   >
-                    <option value="any">Any Type</option>
+                    <option value="">Any Type</option>
                     <option value="Full-time">Full-time</option>
                     <option value="Part-time">Part-time</option>
                     <option value="Contract">Contract</option>
