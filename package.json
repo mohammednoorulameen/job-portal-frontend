@@ -9,16 +9,42 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.2.4"
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@hookform/resolvers": "^5.0.1",
+    "@mantine/core": "^7.17.3",
+    "@mantine/dates": "^7.17.3",
+    "@mantine/form": "^7.17.3",
+    "@mantine/hooks": "^7.17.3",
+    "@mui/icons-material": "^7.0.1",
+    "@mui/material": "^7.0.1",
+    "@mui/x-date-pickers": "^7.28.3",
+    "@nestjs/platform-express": "^11.0.13",
+    "@tabler/icons-react": "^3.31.0",
+    "axios": "^1.8.4",
+    "date-fns": "^2.29.3",
+    "formik": "^2.4.6",
+    "lodash": "^4.17.21",
+    "lucide-react": "^0.487.0",
+    "multer": "^1.4.5-lts.2",
+    "next": "^15.2.4",
+    "postcss": "^8.5.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-hook-form": "^7.55.0",
+    "shadcn-ui": "^0.9.5",
+    "usehooks-ts": "^3.1.1",
+    "yup": "^1.6.1",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@tailwindcss/postcss": "^4.1.1",
+    "@types/lodash": "^4.17.16",
+    "@types/multer": "^1.4.12",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4.1.1",
+    "typescript": "^5"
   }
 }

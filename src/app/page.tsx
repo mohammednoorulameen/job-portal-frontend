@@ -1,103 +1,167 @@
-import Image from "next/image";
 
-export default function Home() {
+
+
+"use client";
+
+import Navbar from "@/Components/Navbar/Navbar";
+import { Container } from "@mantine/core";
+import React, { useEffect, useState, useCallback } from "react";
+import JobFilter from "@/app/jobs/JobFilter/JobFilter";
+import JobListing from "./jobs/JobListing/JobListing";
+import { JobType } from "@/types/index";
+import { fetchFiltering, fetchJobs } from "@/services/apis/apis";
+
+const Home: React.FC = () => {
+  const [filteredJobs, setFilteredJobs] = useState<JobType[]>([]);
+
+  /**
+   * Fetch jobs on mount
+   */
+  // useEffect(() => {
+  //   const getJobs = async () => {
+  //     try {
+  //       const response = await fetchJobs();
+
+  //       if (!response || !response.data) {
+  //         throw new Error("Failed to fetch jobs");
+  //       }
+  //       // const data = await response.json();
+  //       console.log("Fetched Jobs:", response);
+  //       setFilteredJobs(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching jobs:", error);
+  //     }
+  //   };
+
+  //   getJobs();
+  // }, []);
+
+  useEffect(() => {
+    const getJobs = async () => {
+      try {
+        const data = await fetchJobs(); // `data` is the actual jobs array/object
+  
+        if (!data) {
+          throw new Error("Failed to fetch jobs");
+        }
+  
+        console.log("Fetched Jobs:", data);
+        setFilteredJobs(data);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    };
+  
+    getJobs();
+  }, []);
+  
+
+  /**
+   * Handle Filtering - Memoized using useCallback
+   */
+  const handleFilter = useCallback(async (filters: Record<string, string>) => {
+    try {
+      console.log("Filters applied:", filters);
+
+      const queryParams = new URLSearchParams(filters).toString();
+      const response = await fetchFiltering(queryParams);
+
+      if (!response || !response.data) {
+        throw new Error("Failed to fetch filtered jobs");
+      }
+
+      const fetchdata: JobType[] = Array.isArray(response.data)
+        ? response.data
+        : response.data.jobs;
+
+      console.log("Filtered data:", fetchdata);
+      setFilteredJobs(fetchdata);
+    } catch (error) {
+      console.error("Error fetching filtered jobs:", error);
+    }
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <main>
+      <Navbar />
+      <Container size="xl">
+        <JobFilter onFilter={handleFilter} />
+        <JobListing jobs={filteredJobs} /> {/* ✅ Ensure JobListing accepts jobs */}
+      </Container>
+    </main>
   );
-}
+};
+
+export default Home;
+
+// "use client";
+
+// import Navbar from '@/Components/Navbar/Navbar'
+// import { Container } from '@mantine/core'
+// import React, { useEffect, useState } from 'react'
+// import JobFilter from '@/app/jobs/JobFilter/JobFilter'
+// import JobListing from './jobs/JobListing/JobListing'
+// import { JobType } from '@/types/index'
+// import { fetchFiltering, fetchJobs } from '@/services/apis/apis'
+
+// const Home = () => {
+//   const [ filteredJobs,setFilteredJobs ] = useState<JobType[]>([]);
+
+//   useEffect(()=>{
+//     const getJobs = async () =>{
+//       const response = await fetchJobs();
+ 
+//       console.log("check rewsponse list",response)
+
+//       if(!response){
+//         throw new Error ("failed to fetching")
+//       }
+
+//       const fetchingData = await response;
+//       console.log("fetchingDatafetchingData" , fetchingData.data)
+//       setFilteredJobs(fetchingData.data)
+//     }
+//     getJobs()
+//   }, [])
+
+// /**
+//  * handle flitering
+//  */
+
+//   const handleFilter = async (filters: any) => {
+//     try {
+//       console.log("Filters applied:", filters);
+  
+//       const queryParams = new URLSearchParams(filters).toString();
+      
+//       const response = await fetchFiltering(); 
+      
+//       if (!response || !response.data) {
+//         throw new Error("Failed to fetch filtered jobs");
+//       }
+  
+//       // Extract only the data part
+//       const fetchdata: JobType[] = Array.isArray(response.data) ? response.data : response.data.jobs;
+      
+//       console.log("Filtered data:", fetchdata);
+//       setFilteredJobs(fetchdata); 
+//     } catch (error) {
+//       console.error("Error fetching filtered jobs:", error);
+//     }
+//   };
+  
+
+  
+//   return (
+//   <main>
+//     <Navbar/>
+//     <Container size="xl">
+//        <JobFilter onFilter={handleFilter}/>
+//        <JobListing jobs={filteredJobs} />
+//     </Container>
+//   </main>
+//   )
+// }
+
+// export default Home
+
