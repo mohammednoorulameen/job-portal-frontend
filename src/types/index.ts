@@ -1,4 +1,9 @@
 export interface JobType {
+    applicationDeadline: string
+    location: string
+    jobType: string
+    minSalary: any
+    maxSalary: any
     id: string
     jobTitle: string
     companyName: string

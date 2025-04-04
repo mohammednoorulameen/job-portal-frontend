@@ -1,122 +1,61 @@
+import JobCard from "@/Components/JobCard/JobCard";
+import React from "react";
+import { JobType } from "@/types";
 
-
-
-import JobCard from '@/Components/JobCard/JobCard';
-import React from 'react'
-
-const JobListing = () => {
-    const jobs = [
-        {
-          image: "/user-avatar1.jpg",
-          time: "2 hours ago",
-          title: "Frontend Developer",
-          company: "Tech Corp",
-          location: "New York, USA",
-          type: "Full-time",
-          salary: "$5,000 / month",
-        },
-        {
-          image: "/user-avatar2.jpg",
-          time: "1 day ago",
-          title: "Backend Developer",
-          company: "InnovateX",
-          location: "San Francisco, USA",
-          type: "Part-time",
-          salary: "$3,500 / month",
-        },
-        {
-            image: "/user-avatar2.jpg",
-            time: "1 day ago",
-            title: "Backend Developer",
-            company: "InnovateX",
-            location: "San Francisco, USA",
-            type: "Part-time",
-            salary: "$3,500 / month",
-          },
-          {
-            image: "/user-avatar2.jpg",
-            time: "1 day ago",
-            title: "Backend Developer",
-            company: "InnovateX",
-            location: "San Francisco, USA",
-            type: "Part-time",
-            salary: "$3,500 / month",
-          },
-          {
-            image: "/user-avatar2.jpg",
-            time: "1 day ago",
-            title: "Backend Developer",
-            company: "InnovateX",
-            location: "San Francisco, USA",
-            type: "Part-time",
-            salary: "$3,500 / month",
-          },
-          {
-            image: "/user-avatar2.jpg",
-            time: "1 day ago",
-            title: "Backend Developer",
-            company: "InnovateX",
-            location: "San Francisco, USA",
-            type: "Part-time",
-            salary: "$3,500 / month",
-          },
-          {
-            image: "/user-avatar2.jpg",
-            time: "1 day ago",
-            title: "Backend Developer",
-            company: "InnovateX",
-            location: "San Francisco, USA",
-            type: "Part-time",
-            salary: "$3,500 / month",
-          },
-          {
-            image: "/user-avatar2.jpg",
-            time: "1 day ago",
-            title: "Backend Developer",
-            company: "InnovateX",
-            location: "San Francisco, USA",
-            type: "Part-time",
-            salary: "$3,500 / month",
-          },
-           {
-          image: "/user-avatar2.jpg",
-          time: "1 day ago",
-          title: "Backend Developer",
-          company: "InnovateX",
-          location: "San Francisco, USA",
-          type: "Part-time",
-          salary: "$3,500 / month",
-        }, {
-            image: "/user-avatar2.jpg",
-            time: "1 day ago",
-            title: "Backend Developer",
-            company: "InnovateX",
-            location: "San Francisco, USA",
-            type: "Part-time",
-            salary: "$3,500 / month",
-          },
-
-        // Add more jobs...
-      ];
-  return (
-//     <div>
-//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 max-w-[1200px] mx-auto">
-//   {jobs.map((job, index) => (
-//     <JobCard key={index} {...job} />
-//   ))}
-// </div>
-
-//     </div>
-
-<div className="max-w-[1400px] mx-auto p-4">
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-  {jobs.map((job, index) => (
-    <JobCard key={index} {...job} />
-    
-  ))}
-</div>
-</div>
-  )
+interface JobListingProps {
+  jobs: JobType[];
 }
 
-export default JobListing
+const JobListing: React.FC<JobListingProps> = ({ jobs }) => {
+  return (
+    <div className="max-w-[1400px] mx-auto p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {jobs.map((job) => (
+          // <JobCard
+          //   key={job.id}
+          //   image={
+          //     typeof job.companyLogo === "string"
+          //       ? job.companyLogo || "/default-logo.png"
+          //       : job.companyLogo instanceof File
+          //       ? URL.createObjectURL(job.companyLogo)
+          //       : "/default-logo.png"
+          //   }
+          //   time={new Date(job.createdAt).toLocaleDateString()}
+          //   title={job.jobTitle}
+          //   company={job.companyName}
+          //   location={job.location}
+          //   type={job.jobType}
+          //   requirements = {job.requirements}
+          //   salary={`$${job.minSalary} - $${job.maxSalary}`}
+          // />
+
+          <JobCard
+  key={job.id}
+  image={
+    typeof job.companyLogo === "string"
+      ? job.companyLogo || "/default-logo.png"
+      : job.companyLogo instanceof File
+      ? URL.createObjectURL(job.companyLogo)
+      : "/default-logo.png"
+  }
+  time={new Date(job.createdAt).toLocaleDateString()}
+  title={job.jobTitle}
+  company={job.companyName}
+  location={job.location}
+  type={job.jobType}
+  salary={`$${job.minSalary} - $${job.maxSalary}`}
+  requirements={job.requirements}
+  responsibilities={job.responsibilities}
+  experience={job.experience}
+  applicationDeadline={job.applicationDeadline}
+  workLocation={job.workLocation}
+  jobDescription={job.jobDescription}
+/>
+
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default JobListing;
