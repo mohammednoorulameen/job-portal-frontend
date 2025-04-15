@@ -26,7 +26,7 @@ const JobListing: React.FC<JobListingProps> = ({ jobs }) => {
   company={job.companyName}
   location={job.location}
   type={job.jobType}
-  salary={`$${job.minSalary} - $${job.maxSalary}`}
+  salary={`$${job.salaryMin} - $${job.salaryMax}`}
   requirements={job.requirements}
   responsibilities={job.responsibilities}
   experience={job.experience}

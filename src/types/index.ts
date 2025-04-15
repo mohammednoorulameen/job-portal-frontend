@@ -1,4 +1,5 @@
 export interface JobType {
+    salaryMax: any
     applicationDeadline: string
     location: string
     jobType: string
