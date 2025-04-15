@@ -6,7 +6,7 @@ import axiosInstance from '@/services/axios/axiosInstance';
  */
 export const jobCreation = async (formData: FormData) => {
   try {
-    const response = await axiosInstance.post('/', formData); // DO NOT set Content-Type manually
+    const response = await axiosInstance.post('https://jobportalserver.prasoonpr.tech/jobs', formData); // DO NOT set Content-Type manually
     return response.data;
   } catch (error) {
     console.error('Error creating job:', error);
@@ -19,7 +19,7 @@ export const jobCreation = async (formData: FormData) => {
  */
 export const fetchJobs = async () => {
   try {
-    const response = await axiosInstance.get('/');
+    const response = await axiosInstance.get('https://jobportalserver.prasoonpr.tech/jobs');
     return response.data;
   } catch (error) {
     console.error('Error fetching jobs:', error);
@@ -38,7 +38,7 @@ export const fetchFiltering = async (filters: Record<string, string>) => {
       if (value) query.append(key, value);
     }
 
-    const response = await axiosInstance.get(`/?${query.toString()}`);
+    const response = await axiosInstance.get(`https://jobportalserver.prasoonpr.tech/jobs?${query.toString()}`);
     return response.data;
   } catch (error) {
     console.error('Error filtering jobs:', error);
