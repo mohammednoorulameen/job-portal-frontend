@@ -9,7 +9,9 @@ interface JobProps {
   company: string;
   location: string;
   type: string;
-  salary: string;
+  // salary: string;
+  salaryMax:number;
+  salaryMin:number;
   requirements: string;
   responsibilities: string;
   experience: string;
@@ -25,7 +27,9 @@ const JobCard: React.FC<JobProps> = ({
   company,
   location,
   type,
-  salary,
+  // salary,
+  salaryMin,
+  salaryMax,
   requirements,
   responsibilities,
   experience,
@@ -67,7 +71,8 @@ const JobCard: React.FC<JobProps> = ({
         <p className="text-gray-600">{company} • {location}</p>
         <div className="mt-2 flex items-center space-x-4">
           <span className="text-blue-600 font-medium">{type}</span>
-          <span className="text-green-600 font-medium">{salary}</span>
+          {/* <span className="text-green-600 font-medium">{salary}</span> */}
+          <span className="text-green-600 font-medium">{salaryMin -  salaryMax}</span>
         </div>
 
       
